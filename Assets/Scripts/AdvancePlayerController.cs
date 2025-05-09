@@ -8,7 +8,7 @@ public class AdvancePlayerController : MonoBehaviour
 {
     // [1] Define the car settings
     [Header("Car Settings")]
-    public float maxSpeed = 20.0f;
+    public float maxSpeed = 20.0f;  
     public float acceleration = 10.0f;
     public float deceleration = 15.0f;
     public float turnSpeed = 180.0f;
