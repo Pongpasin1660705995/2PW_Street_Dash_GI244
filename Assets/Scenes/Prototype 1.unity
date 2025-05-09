@@ -372,6 +372,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4533943726500818, guid: 2224b63330275e5478ef024b2913f937, type: 3}
   m_PrefabInstance: {fileID: 245353917}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &253264886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 253264888}
+  - component: {fileID: 253264887}
+  - component: {fileID: 253264889}
+  m_Layer: 0
+  m_Name: Spawn Obstacle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &253264887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253264886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ed95a52cd23b049b2897cfa76188b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 3699645110136151990, guid: 58958c8a8c7f2d84aad1dc135fd15372, type: 3}
+  - {fileID: 1578648647745798981, guid: dc1f20b485b590143a1d84018d9c4ac8, type: 3}
+  - {fileID: 1825949778204848764, guid: ab2856380711c8846a7a8973afa3da19, type: 3}
+  - {fileID: 6593833805743446624, guid: f59493dde9809cc41a84e84e6b97b03f, type: 3}
+  - {fileID: 5199532716760300963, guid: 3de0eeccba5c47b4b894f6ab4cbda226, type: 3}
+  - {fileID: 729390039090253165, guid: 70a2b08964f2b9244b17d34c2f1245ff, type: 3}
+  spawnPos: {x: 0, y: 0, z: 110}
+  startDelay: 5
+  repeatRate: 5
+--- !u!4 &253264888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253264886}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 110}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &253264889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253264886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af2035ea3abd27b4c8586c5de21ca311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 3699645110136151990, guid: 58958c8a8c7f2d84aad1dc135fd15372, type: 3}
+  - {fileID: 1578648647745798981, guid: dc1f20b485b590143a1d84018d9c4ac8, type: 3}
+  - {fileID: 1825949778204848764, guid: ab2856380711c8846a7a8973afa3da19, type: 3}
+  - {fileID: 6593833805743446624, guid: f59493dde9809cc41a84e84e6b97b03f, type: 3}
+  - {fileID: 5199532716760300963, guid: 3de0eeccba5c47b4b894f6ab4cbda226, type: 3}
+  - {fileID: 729390039090253165, guid: 70a2b08964f2b9244b17d34c2f1245ff, type: 3}
+  initialPoolSize: 5
 --- !u!1001 &381711731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -616,6 +691,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd20f27251dbc9d4c92c89800b40f471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &621644154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 621644157}
+  - component: {fileID: 621644156}
+  - component: {fileID: 621644155}
+  m_Layer: 0
+  m_Name: Spawn Coin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &621644155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621644154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af2035ea3abd27b4c8586c5de21ca311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 1231896734761747888, guid: b62ba02f63201e145af079b6532cd5cc, type: 3}
+  initialPoolSize: 5
+--- !u!114 &621644156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621644154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ed95a52cd23b049b2897cfa76188b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 1231896734761747888, guid: b62ba02f63201e145af079b6532cd5cc, type: 3}
+  spawnPos: {x: 0, y: 0, z: 100}
+  startDelay: 5
+  repeatRate: 5
+--- !u!4 &621644157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621644154}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 110}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &703073051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -814,6 +954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1132367699}
   - component: {fileID: 1132367698}
+  - component: {fileID: 1132367700}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -864,6 +1005,21 @@ Transform:
   - {fileID: 728291330}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1132367700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132367697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff4bef4035b88e40b960fb9d118b319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  xRange: 10
+  projectilePrefab: {fileID: 0}
 --- !u!1001 &1299201661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1739,3 +1895,5 @@ SceneRoots:
   - {fileID: 1385500138}
   - {fileID: 1132367699}
   - {fileID: 1665429833}
+  - {fileID: 253264888}
+  - {fileID: 621644157}
