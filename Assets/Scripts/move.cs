@@ -1,16 +1,21 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class Move : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float speed = 10f;
+
+    private PlayerController playerController;
+
     void Start()
     {
-        
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (!playerController.isGameOver)
+        {
+            transform.Translate(Vector3.back * Time.deltaTime * speed); // เปลี่ยนเป็นแกน Z
+        }
     }
 }

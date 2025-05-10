@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public float xRange = 10f;
 
-    public GameObject projectilePrefab;
-
     // Game system variables
     public int lives = 3;
     private int score = 0;

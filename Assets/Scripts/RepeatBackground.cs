@@ -3,21 +3,29 @@ using UnityEngine;
 public class RepeatBackground : MonoBehaviour
 {
     private Vector3 startPos;
-    private float repeatWidth;
+    private float repeatLength;
+    private PlayerController playerController;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float speed;
+
     void Start()
     {
         startPos = transform.position;
-        repeatWidth = GetComponent<BoxCollider>().size.x / 2;
+        repeatLength = GetComponent<BoxCollider>().size.z / 1.5f;
+
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < startPos.x - repeatWidth)
+        if (playerController != null && !playerController.isGameOver)
         {
-            transform.position = startPos;
+            transform.Translate(Vector3.back * speed * Time.deltaTime);
+
+            if (transform.position.z < startPos.z - repeatLength)
+            {
+                transform.position = startPos;
+            }
         }
     }
 }

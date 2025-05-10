@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Obatacle
   - Score
+  - Boundary
+  - Obstacle
   layers:
   - Default
   - TransparentFX

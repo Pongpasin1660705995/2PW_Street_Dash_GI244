@@ -5,8 +5,8 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] obstaclePrefabs;
     public GameObject[] scorePrefabs;
 
-    public Vector3 obstacleSpawnPos = new Vector3(0, 0, 30);
-    public Vector3 scoreSpawnPos = new Vector3(0, 1, 30);
+    public Vector3 obstacleSpawnPos = new Vector3(0, 0, 110);
+    public Vector3 scoreSpawnPos = new Vector3(0, 0, 110);
     public float xRange = 10f;
 
     public float startDelay = 5;
@@ -21,9 +21,10 @@ public class SpawnManager : MonoBehaviour
     {
         obstacleObjectPool = ObstacleObjectPool.GetInstance();
 
-        // Preload obstacles
+        // Register และ Preload Obstacles
         foreach (var prefab in obstaclePrefabs)
         {
+            obstacleObjectPool.RegisterPrefab(prefab.name, prefab);
             for (int i = 0; i < 5; i++)
             {
                 GameObject obj = Instantiate(prefab);
@@ -32,10 +33,11 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        // Preload score items
+        // Register และ Preload Score Items
         foreach (var prefab in scorePrefabs)
         {
-            for (int i = 0; i < 10; i++)
+            obstacleObjectPool.RegisterPrefab(prefab.name, prefab);
+            for (int i = 0; i < 100; i++)
             {
                 GameObject obj = Instantiate(prefab);
                 obj.name = prefab.name;

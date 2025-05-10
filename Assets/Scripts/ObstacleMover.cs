@@ -12,7 +12,7 @@ public class ObstacleMover : MonoBehaviour
         if (transform.position.z < leftBound)
         {
             // คืนอุปสรรคกลับเข้า object pool
-            ObstacleObjectPool.Instance().Release(gameObject);
+            ObstacleObjectPool.GetInstance().Release(gameObject);
         }
     }
 }

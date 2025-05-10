@@ -2292,9 +2292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa45874ee1918b24a839f391864b9b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  backBound: -1500
-  playerController: {fileID: 0}
 --- !u!114 &231784253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2511,13 +2508,14 @@ MonoBehaviour:
   - {fileID: 6593833805743446624, guid: f59493dde9809cc41a84e84e6b97b03f, type: 3}
   - {fileID: 5199532716760300963, guid: 3de0eeccba5c47b4b894f6ab4cbda226, type: 3}
   - {fileID: 729390039090253165, guid: 70a2b08964f2b9244b17d34c2f1245ff, type: 3}
-  scorePrefabs: []
-  obstacleSpawnPos: {x: 0, y: 0, z: 30}
-  scoreSpawnPos: {x: 0, y: 1, z: 30}
+  scorePrefabs:
+  - {fileID: 1231896734761747888, guid: b62ba02f63201e145af079b6532cd5cc, type: 3}
+  obstacleSpawnPos: {x: 0, y: 0, z: 110}
+  scoreSpawnPos: {x: 0, y: 1, z: 110}
   xRange: 10
   startDelay: 3
   repeatRate: 2
-  scoreSpawnChance: 0.6
+  scoreSpawnChance: 1
 --- !u!4 &253264888
 Transform:
   m_ObjectHideFlags: 0
@@ -2545,6 +2543,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2035ea3abd27b4c8586c5de21ca311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 3699645110136151990, guid: 58958c8a8c7f2d84aad1dc135fd15372, type: 3}
+  - {fileID: 1578648647745798981, guid: dc1f20b485b590143a1d84018d9c4ac8, type: 3}
+  - {fileID: 1825949778204848764, guid: ab2856380711c8846a7a8973afa3da19, type: 3}
+  - {fileID: 6593833805743446624, guid: f59493dde9809cc41a84e84e6b97b03f, type: 3}
+  - {fileID: 5199532716760300963, guid: 3de0eeccba5c47b4b894f6ab4cbda226, type: 3}
+  - {fileID: 729390039090253165, guid: 70a2b08964f2b9244b17d34c2f1245ff, type: 3}
+  scorePrefabs:
+  - {fileID: 1231896734761747888, guid: b62ba02f63201e145af079b6532cd5cc, type: 3}
 --- !u!4 &254687477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4040386314876686, guid: 12ba3d1ec135f1b4e9caddc7e211dd72, type: 3}
@@ -8012,9 +8019,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa45874ee1918b24a839f391864b9b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  backBound: -1500
-  playerController: {fileID: 0}
 --- !u!114 &777158471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9661,9 +9665,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa45874ee1918b24a839f391864b9b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  backBound: -1500
-  playerController: {fileID: 0}
 --- !u!1001 &972841013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11179,7 +11180,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -11213,7 +11214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   xRange: 10
-  projectilePrefab: {fileID: 0}
   lives: 3
   isGameOver: 0
   ScoreText: {fileID: 2033265675}
@@ -11248,8 +11248,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.0155087, y: 2.5040054, z: 9.483854}
-  m_Center: {x: -0.000051379204, y: 2.1658816, z: 0.042513847}
+  m_Size: {x: 4.0334907, y: 1.7606778, z: 9.672523}
+  m_Center: {x: -0.032675028, y: 2.4564474, z: 0.01896143}
 --- !u!4 &1132434918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 0b6fafa63b69b174584365f2641586a4, type: 3}
@@ -16680,9 +16680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa45874ee1918b24a839f391864b9b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  backBound: -1500
-  playerController: {fileID: 0}
 --- !u!65 &1665429835
 BoxCollider:
   m_ObjectHideFlags: 0
