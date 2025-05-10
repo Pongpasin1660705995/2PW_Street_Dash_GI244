@@ -58,6 +58,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mail_box prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1016869591269748, guid: 3f3f0ad0013c05f478f38f3920e05817, type: 3}
+      propertyPath: m_TagString
+      value: Score
+      objectReference: {fileID: 0}
     - target: {fileID: 4380016706720580, guid: 3f3f0ad0013c05f478f38f3920e05817, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0

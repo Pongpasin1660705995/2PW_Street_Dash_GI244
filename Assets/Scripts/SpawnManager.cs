@@ -3,47 +3,95 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] obstaclePrefabs;
-    public Vector3 spawnPos;
+    public GameObject[] scorePrefabs;
+
+    public Vector3 obstacleSpawnPos = new Vector3(0, 0, 30);
+    public Vector3 scoreSpawnPos = new Vector3(0, 1, 30);
+    public float xRange = 10f;
+
     public float startDelay = 5;
     public float repeatRate = 1;
+
+    [Range(0f, 1f)]
+    public float scoreSpawnChance = 0.6f;
 
     private ObstacleObjectPool obstacleObjectPool;
 
     void Start()
     {
         obstacleObjectPool = ObstacleObjectPool.GetInstance();
-        InvokeRepeating(nameof(SpawnObstacle), startDelay, repeatRate);
+
+        // Preload obstacles
+        foreach (var prefab in obstaclePrefabs)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                GameObject obj = Instantiate(prefab);
+                obj.name = prefab.name;
+                obstacleObjectPool.AddToPool(prefab.name, obj);
+            }
+        }
+
+        // Preload score items
+        foreach (var prefab in scorePrefabs)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                GameObject obj = Instantiate(prefab);
+                obj.name = prefab.name;
+                obstacleObjectPool.AddToPool(prefab.name, obj);
+            }
+        }
+
+        InvokeRepeating(nameof(SpawnObject), startDelay, repeatRate);
     }
 
-    void SpawnObstacle()
+    void SpawnObject()
     {
-        //if (FindObjectOfType<PlayerController>().gameOver)
-        //{
-        //    CancelInvoke(nameof(SpawnObstacle));
-        //    return;
-        //}
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        var player = GameObject.Find("Player")?.GetComponent<PlayerController>();
+        if (player == null || player.isGameOver)
         {
-            CancelInvoke(nameof(SpawnObstacle));
+            CancelInvoke(nameof(SpawnObject));
             return;
         }
 
-        int randomIndex = Random.Range(0, obstaclePrefabs.Length);
-        GameObject randomPrefab = obstaclePrefabs[randomIndex];
-        GameObject obstacle = obstacleObjectPool.Acquire(randomPrefab.name);
+        float roll = Random.value;
+        GameObject selectedPrefab;
+        string prefabName;
+        Vector3 spawnPosition;
 
-
-        if (obstacle != null)
+        if (roll < scoreSpawnChance && scorePrefabs.Length > 0)
         {
-            obstacle.transform.position = spawnPos;
-            obstacle.transform.rotation = randomPrefab.transform.rotation;
+            int randomScoreIndex = Random.Range(0, scorePrefabs.Length);
+            selectedPrefab = scorePrefabs[randomScoreIndex];
+            prefabName = selectedPrefab.name;
 
-            var mover = obstacle.GetComponent<ObstacleMover>();
+            float randomX = Random.Range(-xRange, xRange);
+            spawnPosition = new Vector3(randomX, scoreSpawnPos.y, scoreSpawnPos.z);
+        }
+        else
+        {
+            int randomObstacleIndex = Random.Range(0, obstaclePrefabs.Length);
+            selectedPrefab = obstaclePrefabs[randomObstacleIndex];
+            prefabName = selectedPrefab.name;
+
+            spawnPosition = obstacleSpawnPos;
+        }
+
+        GameObject obj = obstacleObjectPool.Acquire(prefabName);
+
+        if (obj != null)
+        {
+            obj.transform.position = spawnPosition;
+            obj.transform.rotation = selectedPrefab.transform.rotation;
+
+            var mover = obj.GetComponent<ObstacleMover>();
             if (mover != null)
-            {
-                mover.speed = 10f;
-            }
+                mover.speed = 40f;
+
+            var scoreMover = obj.GetComponent<ScoreItemMover>();
+            if (scoreMover != null)
+                scoreMover.speed = 40f;
         }
     }
 }

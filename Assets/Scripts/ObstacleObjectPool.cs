@@ -4,75 +4,56 @@ using UnityEngine;
 public class ObstacleObjectPool : MonoBehaviour
 {
     private static ObstacleObjectPool instance;
-
-    private Dictionary<string, List<GameObject>> pooledObjects = new Dictionary<string, List<GameObject>>();
-
-    public GameObject[] obstaclePrefabs;
-    public int initialPoolSize = 5;
-
     public static ObstacleObjectPool GetInstance()
     {
         if (instance == null)
         {
-            instance = FindObjectOfType<ObstacleObjectPool>();
+            GameObject obj = new GameObject("ObstacleObjectPool");
+            instance = obj.AddComponent<ObstacleObjectPool>();
         }
         return instance;
     }
 
-    void Start()
+    private Dictionary<string, Queue<GameObject>> pool = new Dictionary<string, Queue<GameObject>>();
+
+    // ฟังก์ชันนี้ใช้สำหรับการเพิ่ม Object ไปที่ Pool
+    public void AddToPool(string key, GameObject obj)
     {
-        foreach (GameObject prefab in obstaclePrefabs)
+        obj.SetActive(false);
+
+        if (!pool.ContainsKey(key))
         {
-            List<GameObject> pool = new List<GameObject>();
-
-            for (int i = 0; i < initialPoolSize; i++)
-            {
-                GameObject p = Instantiate(prefab);
-                p.SetActive(false);
-                pool.Add(p);
-            }
-
-            pooledObjects[prefab.name] = pool;
+            pool[key] = new Queue<GameObject>();
         }
+
+        pool[key].Enqueue(obj);
     }
 
-    public GameObject Acquire(string prefabName)
+    // ฟังก์ชันนี้ใช้ดึง Object จาก Pool
+    public GameObject Acquire(string key)
     {
-        if (pooledObjects.ContainsKey(prefabName))
+        if (pool.ContainsKey(key) && pool[key].Count > 0)
         {
-            List<GameObject> pool = pooledObjects[prefabName];
-
-            if (pool.Count > 0)
-            {
-                GameObject p = pool[0];
-                pool.RemoveAt(0);
-                p.SetActive(true);
-                return p;
-            }
-            else
-            {
-                // หา prefab ต้นฉบับจากชื่อ
-                GameObject original = System.Array.Find(obstaclePrefabs, p => p.name == prefabName);
-                if (original != null)
-                {
-                    GameObject newObj = Instantiate(original);
-                    newObj.SetActive(true);
-                    return newObj;
-                }
-            }
+            GameObject obj = pool[key].Dequeue();
+            obj.SetActive(true);
+            return obj;
         }
 
+        Debug.LogWarning("No available object in pool for key: " + key);
         return null;
     }
 
-    public void Release(GameObject p)
+    // ฟังก์ชันนี้ใช้สำหรับคืน Object ไปที่ Pool
+    public void Release(GameObject obj)
     {
-        p.SetActive(false);
-        string key = p.name.Replace("(Clone)", "").Trim(); // กำจัด (Clone)
-        if (!pooledObjects.ContainsKey(key))
+        obj.SetActive(false);
+        string key = obj.name;
+
+        if (!pool.ContainsKey(key))
         {
-            pooledObjects[key] = new List<GameObject>();
+            pool[key] = new Queue<GameObject>();
         }
-        pooledObjects[key].Add(p);
+
+        pool[key].Enqueue(obj);
     }
 }
