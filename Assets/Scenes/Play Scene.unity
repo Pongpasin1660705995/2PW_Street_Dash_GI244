@@ -5029,7 +5029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   xRange: 10
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 7249189235959581395, guid: 623edcb7c50876a4c8779eb79206565c, type: 3}
 --- !u!1001 &1161347280
 PrefabInstance:
   m_ObjectHideFlags: 0
