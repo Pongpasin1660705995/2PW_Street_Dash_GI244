@@ -114,6 +114,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Concrete_Barrier_3
       objectReference: {fileID: 0}
+    - target: {fileID: 9184799658607813419, guid: 4ddde72b89e9a1e42b5de002b4331b62, type: 3}
+      propertyPath: m_TagString
+      value: Obatacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
