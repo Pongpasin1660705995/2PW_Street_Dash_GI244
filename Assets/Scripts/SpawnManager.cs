@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     {
         obstacleObjectPool = ObstacleObjectPool.GetInstance();
 
-        // Register ·≈– Preload Obstacles
+        // Register ‡πÅ‡∏•‡∏∞ Preload Obstacles
         foreach (var prefab in obstaclePrefabs)
         {
             obstacleObjectPool.RegisterPrefab(prefab.name, prefab);
@@ -33,7 +33,7 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        // Register ·≈– Preload Score Items
+        // Register ‡πÅ‡∏•‡∏∞ Preload Score Items
         foreach (var prefab in scorePrefabs)
         {
             obstacleObjectPool.RegisterPrefab(prefab.name, prefab);
