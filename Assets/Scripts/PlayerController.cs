@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour
 
             // ปล่อยกลับเข้า pool แทนการ Destroy
             ObstacleObjectPool.GetInstance().Release(collision.gameObject);
+            UpdateUI();
         }
 
     }
