@@ -25,14 +25,24 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI DistanceText;
     public TextMeshProUGUI GameOverDistanceText;
     public TextMeshProUGUI GameOverHighDistanceText;
+    public TextMeshProUGUI HistoryText;
+    public TextMeshProUGUI NewRecordText;
+
     public Button RestartButton;
     public Button MainMenuButton;
 
-    // UI สำหรับแสดงหัวใจ
     public GameObject heartPrefab;
+
     public Transform heartContainer;
+
     public Sprite fullHeart;
     public Sprite emptyHeart;
+
+    public AudioSource audioSource;
+    public AudioClip scoreClip;
+    public AudioClip hitClip;
+    public AudioClip gameOverClip;
+
 
     private List<Image> heartImages = new List<Image>();
 
@@ -65,13 +75,11 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(horizontalInput * speed * Time.deltaTime * Vector3.right);
 
-        // จำกัดการเคลื่อนไหวในแกน x
         if (transform.position.x < -xRange)
             transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
         if (transform.position.x > xRange)
             transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
 
-        // เพิ่มระยะทาง
         distance += Time.deltaTime;
 
         UpdateUI();
@@ -86,6 +94,9 @@ public class PlayerController : MonoBehaviour
             lives--;
             ObstacleObjectPool.GetInstance().Release(collision.gameObject);
 
+            if (hitClip != null && audioSource != null)
+                audioSource.PlayOneShot(hitClip);
+
             UpdateHearts();
 
             if (lives <= 0)
@@ -98,12 +109,14 @@ public class PlayerController : MonoBehaviour
         {
             score++;
 
-            // ปล่อยกลับเข้า pool แทนการ Destroy
-            ObstacleObjectPool.GetInstance().Release(collision.gameObject);
+            if (scoreClip != null && audioSource != null)
+                audioSource.PlayOneShot(scoreClip);
+
+            Destroy(collision.gameObject);
             UpdateUI();
         }
-
     }
+
 
     public void GameOver()
     {
@@ -113,18 +126,21 @@ public class PlayerController : MonoBehaviour
         GameOverUI.SetActive(true);
 
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        bool isNewHighScore = false;
         if (score > highScore)
         {
             highScore = score;
             PlayerPrefs.SetInt("HighScore", highScore);
+            isNewHighScore = true;
         }
 
-        // ระยะทางสูงสุด
         float savedHighDistance = PlayerPrefs.GetFloat("HighDistance", 0f);
+        bool isNewHighDistance = false;
         if (distance > savedHighDistance)
         {
             savedHighDistance = distance;
             PlayerPrefs.SetFloat("HighDistance", savedHighDistance);
+            isNewHighDistance = true;
         }
 
         GameOverScoreText.text = "Score: " + score;
@@ -135,7 +151,44 @@ public class PlayerController : MonoBehaviour
         if (GameOverHighDistanceText != null)
             GameOverHighDistanceText.text = "High Distance: " + savedHighDistance.ToString("F1") + " m";
 
+        // แสดงข้อความทำลายสถิติ
+        if (NewRecordText != null)
+        {
+            if (isNewHighScore && isNewHighDistance)
+                NewRecordText.text = "🎉 New High Score & Longest Distance!";
+            else if (isNewHighScore)
+                NewRecordText.text = "🎉 New High Score!";
+            else if (isNewHighDistance)
+                NewRecordText.text = "🎉 New Longest Distance!";
+            else
+                NewRecordText.text = "Keep trying to beat your record!";
+        }
+
+        if (gameOverClip != null && audioSource != null)
+            audioSource.PlayOneShot(gameOverClip);
+
         Time.timeScale = 0f;
+        SaveScoreToHistory(score);
+        DisplayScoreHistory();
+    }
+
+    void SaveScoreToHistory(int score)
+    {
+        string history = PlayerPrefs.GetString("ScoreHistory", "");
+        string newEntry = $"{score}:{distance:F1}"; // รูปแบบ "score:distance" เช่น "8:35.7"
+
+        // จำกัดแค่ 5 รายการล่าสุด
+        List<string> entries = new List<string>(history.Split(','));
+        if (string.IsNullOrEmpty(history))
+            entries.Clear();
+
+        entries.Add(newEntry);
+
+        if (entries.Count > 5)
+            entries.RemoveAt(0); // ลบรายการแรก (เก่าสุด)
+
+        string updatedHistory = string.Join(",", entries);
+        PlayerPrefs.SetString("ScoreHistory", updatedHistory);
     }
 
     void RestartGame()
@@ -149,7 +202,29 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
+    void DisplayScoreHistory()
+    {
+        string history = PlayerPrefs.GetString("ScoreHistory", "");
+        if (string.IsNullOrEmpty(history))
+        {
+            HistoryText.text = "History:\nNo previous games.";
+            return;
+        }
 
+        string[] entries = history.Split(',');
+        HistoryText.text = "History:\n";
+
+        for (int i = 0; i < entries.Length; i++)
+        {
+            string[] parts = entries[i].Split(':');
+            if (parts.Length == 2)
+            {
+                string score = parts[0];
+                string dist = parts[1];
+                HistoryText.text += $"Round {i + 1} - Score: {score}, Distance: {dist} m\n";
+            }
+        }
+    }
     void UpdateUI()
     {
         if (ScoreText != null)

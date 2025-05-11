@@ -21,7 +21,6 @@ public class SpawnManager : MonoBehaviour
     {
         obstacleObjectPool = ObstacleObjectPool.GetInstance();
 
-        // Register และ Preload Obstacles
         foreach (var prefab in obstaclePrefabs)
         {
             obstacleObjectPool.RegisterPrefab(prefab.name, prefab);
@@ -32,19 +31,6 @@ public class SpawnManager : MonoBehaviour
                 obstacleObjectPool.AddToPool(prefab.name, obj);
             }
         }
-
-        // Register และ Preload Score Items
-        foreach (var prefab in scorePrefabs)
-        {
-            obstacleObjectPool.RegisterPrefab(prefab.name, prefab);
-            for (int i = 0; i < 100; i++)
-            {
-                GameObject obj = Instantiate(prefab);
-                obj.name = prefab.name;
-                obstacleObjectPool.AddToPool(prefab.name, obj);
-            }
-        }
-
         InvokeRepeating(nameof(SpawnObject), startDelay, repeatRate);
     }
 
@@ -59,41 +45,41 @@ public class SpawnManager : MonoBehaviour
 
         float roll = Random.value;
         GameObject selectedPrefab;
-        string prefabName;
         Vector3 spawnPosition;
 
         if (roll < scoreSpawnChance && scorePrefabs.Length > 0)
         {
             int randomScoreIndex = Random.Range(0, scorePrefabs.Length);
             selectedPrefab = scorePrefabs[randomScoreIndex];
-            prefabName = selectedPrefab.name;
 
             float randomX = Random.Range(-xRange, xRange);
             spawnPosition = new Vector3(randomX, scoreSpawnPos.y, scoreSpawnPos.z);
+
+            GameObject obj = Instantiate(selectedPrefab, spawnPosition, selectedPrefab.transform.rotation);
+
+            var scoreMover = obj.GetComponent<ScoreItemMover>();
+            if (scoreMover != null)
+                scoreMover.speed = 40f;
         }
         else
         {
             int randomObstacleIndex = Random.Range(0, obstaclePrefabs.Length);
             selectedPrefab = obstaclePrefabs[randomObstacleIndex];
-            prefabName = selectedPrefab.name;
+            string prefabName = selectedPrefab.name;
 
             spawnPosition = obstacleSpawnPos;
-        }
 
-        GameObject obj = obstacleObjectPool.Acquire(prefabName);
+            GameObject obj = obstacleObjectPool.Acquire(prefabName);
 
-        if (obj != null)
-        {
-            obj.transform.position = spawnPosition;
-            obj.transform.rotation = selectedPrefab.transform.rotation;
+            if (obj != null)
+            {
+                obj.transform.position = spawnPosition;
+                obj.transform.rotation = selectedPrefab.transform.rotation;
 
-            var mover = obj.GetComponent<ObstacleMover>();
-            if (mover != null)
-                mover.speed = 40f;
-
-            var scoreMover = obj.GetComponent<ScoreItemMover>();
-            if (scoreMover != null)
-                scoreMover.speed = 40f;
+                var mover = obj.GetComponent<ObstacleMover>();
+                if (mover != null)
+                    mover.speed = 40f;
+            }
         }
     }
 }
