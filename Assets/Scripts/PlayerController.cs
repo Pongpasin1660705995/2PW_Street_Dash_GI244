@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public Button RestartButton;
     public Button MainMenuButton;
 
-    // UI ����Ѻ�ʴ�����
+    // UI สำหรับแสดงหัวใจ
     public GameObject heartPrefab;
     public Transform heartContainer;
     public Sprite fullHeart;
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        // �� Input System ����
+        // ใช้ Input System ใหม่
         moveAction = InputSystem.actions.FindAction("Move");
     }
 
@@ -65,13 +65,13 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(horizontalInput * speed * Time.deltaTime * Vector3.right);
 
-        // �ӡѴ�������͹����᡹ x
+        // จำกัดการเคลื่อนไหวในแกน x
         if (transform.position.x < -xRange)
             transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
         if (transform.position.x > xRange)
             transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
 
-        // �������зҧ
+        // เพิ่มระยะทาง
         distance += Time.deltaTime;
 
         UpdateUI();
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         {
             score++;
 
-            // ����¡�Ѻ��� pool ᷹��� Destroy
+            // ปล่อยกลับเข้า pool แทนการ Destroy
             ObstacleObjectPool.GetInstance().Release(collision.gameObject);
         }
 
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", highScore);
         }
 
-        // ���зҧ�٧�ش
+        // ระยะทางสูงสุด
         float savedHighDistance = PlayerPrefs.GetFloat("HighDistance", 0f);
         if (distance > savedHighDistance)
         {
