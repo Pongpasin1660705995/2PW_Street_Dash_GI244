@@ -15,7 +15,7 @@ public class Move : MonoBehaviour
     {
         if (!playerController.isGameOver)
         {
-            transform.Translate(Vector3.back * Time.deltaTime * speed); // เปลี่ยนเป็นแกน Z
+            transform.Translate(Vector3.back * Time.deltaTime * speed);
         }
     }
 }

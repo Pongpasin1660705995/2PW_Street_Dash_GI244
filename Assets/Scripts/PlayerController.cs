@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public float xRange = 10f;
 
-    // Game system variables
+    
     public int lives = 3;
     private int score = 0;
     private float distance = 0f;
@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        // ใช้ Input System ใหม่
         moveAction = InputSystem.actions.FindAction("Move");
     }
 
@@ -151,7 +150,7 @@ public class PlayerController : MonoBehaviour
         if (GameOverHighDistanceText != null)
             GameOverHighDistanceText.text = "High Distance: " + savedHighDistance.ToString("F1") + " m";
 
-        // แสดงข้อความทำลายสถิติ
+        
         if (NewRecordText != null)
         {
             if (isNewHighScore && isNewHighDistance)
@@ -175,9 +174,8 @@ public class PlayerController : MonoBehaviour
     void SaveScoreToHistory(int score)
     {
         string history = PlayerPrefs.GetString("ScoreHistory", "");
-        string newEntry = $"{score}:{distance:F1}"; // รูปแบบ "score:distance" เช่น "8:35.7"
-
-        // จำกัดแค่ 5 รายการล่าสุด
+        string newEntry = $"{score}:{distance:F1}";
+        
         List<string> entries = new List<string>(history.Split(','));
         if (string.IsNullOrEmpty(history))
             entries.Clear();
@@ -185,7 +183,7 @@ public class PlayerController : MonoBehaviour
         entries.Add(newEntry);
 
         if (entries.Count > 5)
-            entries.RemoveAt(0); // ลบรายการแรก (เก่าสุด)
+            entries.RemoveAt(0);
 
         string updatedHistory = string.Join(",", entries);
         PlayerPrefs.SetString("ScoreHistory", updatedHistory);
