@@ -1,13 +1,38 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 
 public class AudioController : MonoBehaviour
 {
-    public AudioMixer mixer;
+    [SerializeField] Slider volumeSlider;
 
-    public void SetBGMVolume(float sliderValue)
+    // Start is called before the first frame update
+    void Start()
     {
-        float dB = Mathf.Log10(Mathf.Clamp(sliderValue, 0.0001f, 1)) * 20;
-        mixer.SetFloat("BGMVolume", dB);
+        if (!PlayerPrefs.HasKey("musicVolume"))
+        {
+            PlayerPrefs.SetFloat("musicVolume", 1);
+            Load();
+        }
+        else
+        {
+            Load();
+        }
+    }
+
+    public void ChangeVolume()
+    {
+        AudioListener.volume = volumeSlider.value;
+        Save();
+    }
+
+    private void Load()
+    {
+        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+    }
+
+    private void Save()
+    {
+        PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
     }
 }
