@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour
     void GoToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Main Menu");
     }
     void DisplayScoreHistory()
     {

@@ -12640,7 +12640,7 @@ AudioSource:
   m_GameObject: {fileID: 1132367697}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5176191487318207658, guid: 6f2049bedd2bfd24daab4e3593123cb1, type: 2}
   m_audioClip: {fileID: 8300000, guid: b1a6d43684efb4348b8146391ece98d3, type: 3}
   m_Resource: {fileID: 8300000, guid: b1a6d43684efb4348b8146391ece98d3, type: 3}
   m_PlayOnAwake: 1
@@ -21613,13 +21613,14 @@ GameObject:
   - component: {fileID: 1829154225}
   - component: {fileID: 1829154224}
   - component: {fileID: 1829154223}
+  - component: {fileID: 1829154227}
   m_Layer: 5
   m_Name: GameOverUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1829154223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21703,6 +21704,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1829154227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829154222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e457d819a9a023b49b058e17cfbc2ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1836435470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4602628002107680, guid: 3f3f0ad0013c05f478f38f3920e05817, type: 3}
